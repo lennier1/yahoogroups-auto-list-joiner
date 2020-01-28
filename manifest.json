@@ -1,0 +1,42 @@
+{
+  "name": "Yahoo Groups Auto List Joiner",
+  "version": "0.0.6",
+  "manifest_version": 2,
+  "description": "Join a list of Yahoo Groups",
+  "background": {
+    "scripts": [
+      "src/bg/background.js"
+    ],
+    "persistent": true
+  },
+  "permissions": [
+    "cookies",
+    "storage",
+	"fileSystem",
+	"tabs",
+    "*://*.groups.yahoo.com/neo/groups/*/info",
+    "*://*.groups.yahoo.com/neo/search?query=*",
+	"file:///*/"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "*://*.groups.yahoo.com/neo/groups/*/info"
+      ],
+      "js": [
+        "src/inject/inject.js"
+      ]
+    },
+    {
+      "matches": [
+        "*://*.groups.yahoo.com/neo/search?query=*"
+      ],
+      "js": [
+        "src/inject/search.js"
+      ]
+    }
+  ],
+  "browser_action": {
+    "default_popup": "src/popup/popup.html"
+  }
+}
